@@ -206,13 +206,14 @@ rutas.get('/consulta12', async (req, res) => {
 //Consulta 13: Buscar producto más caro en precio de venta
 rutas.get('/consulta13', async (req, res) => {
     try {
-        const masCaro = await ProductoModel.findOne().sort({ precioVenta: -1 });
+        const masCaro = await ProductoModel.findOne().sort({ precioVenta: 1 });
         res.json(masCaro);
     }
     catch (error) {
         res.status(404).json({ mensaje: error.message });
     }
 });
+
 
 
 //Consulta 14: Listar productos en un rango de fechas

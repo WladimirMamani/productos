@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Usuario = require('./models/Usuario');
@@ -8,6 +9,7 @@ require('dotenv').config();
 const authRutas = require('./routes/authRutas');
 const productosRutas = require('./routes/productoRutas');
 const session = require('express-session');
+const rutas = express.Router();
 
 //configuraciones
 const app = express();
@@ -16,6 +18,15 @@ const MONGODB_URI = process.env.MONGO_URL;
 
 //configurar express para JSON
 app.use(express.json());
+
+//Conexión con puerto de Angular
+const corsOptions = {
+    origin: ['http://localhost:4200', 'http://localhost:4200/'],
+    // origin: ['http://localhost:4200', 'http://localhost:4200/'],
+    optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+// rutas.use(cors(corsOptions));
 
 //Para cierre de sesión
 app.use(session({
